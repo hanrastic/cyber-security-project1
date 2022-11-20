@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Log in!</h1>
+<section class="container">
+    <form action='/login' method='POST'>
+            <input type='text' name='username' id='text-input' placeholder="Username" required autofocus>
+            <br>
+            <input type="password" name='password' id='text-input' placeholder="Username" required>
+            <br>
+            <input type="submit" value='Log in' id="login">
+    </form>
+</section>
+    <a href="/signup" class='container' id="hover">Sign up instead</a>
+{% endblock %}
