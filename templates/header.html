@@ -1,0 +1,14 @@
+<header id="header">
+    <h1><a href="/" id='headertitle'>CyberSecMessageApp</a></h1>
+    {% if session.user_id %}
+    <section class="headerinfo" id="right">
+        <p class='button-wrapper'><a href='/logout' class='button' id="hover">Log Out</a></p>
+    </section>
+    {% else %}
+    <section class="headerinfo" id="right">
+        <p class='button-wrapper'><a href='/login' class='button' id="hover">Log In</a></p>
+        <p class='button-wrapper'><a href='/signup' class='button' id="hover">Create Account</a></p>
+    </section>
+    {% endif %}
+    <hr>
+</header>
