@@ -1,12 +1,12 @@
 import os
-import hashlib
+# import hashlib
 from db import db
 from flask import request, session, abort
 from werkzeug.security import check_password_hash, generate_password_hash
 
 def signup(username, password):
 
-    #hash_value = hashlib.md5(password.encode()).hexdigest()
+    # hash_value = hashlib.md5(password.encode()).hexdigest()
 
     hash_value = generate_password_hash(password)
     try:
@@ -34,3 +34,13 @@ def login(username, password):
     session['csrf_token'] = os.urandom(16).hex()
 
     return True
+
+def logout():
+    del session['user_id']
+    del session['username']
+    del session['csrf_token']
+
+def check_csrf():
+    if session['csrf_token'] != request.form['csrf_token']:
+        abort(403)
+
