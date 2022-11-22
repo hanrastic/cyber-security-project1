@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body>
+    
+<h1>Create a message</h1>
+
+<section class="container">
+    <form action="/sendmessage" method="POST" onsubmit="return checkForEmptyFields(this)">
+
+        Message: <br>
+            <label>
+                <textarea name="message" rows="5" cols="40"></textarea>
+            </label>
+            <br>
+
+        <input type="submit" value="Submit" id="login">
+        <input type='hidden' name='csrf_token' value= {{ session.csrf_token }}>
+    </form>
+</section>
+    
+</body>
+{% endblock %}

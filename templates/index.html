@@ -5,5 +5,10 @@
 <h2> WELCOME! </h2>
 
 <!-- <a href="/postmessage" >Create a message</a> -->
+{% if session.user_id %}
+<a href="/createmessage" class="container" id="hover">Create a message</a>
+{% else %}
+To post a message, you must be logged in.
+{% endif %}
 
 {% endblock %}

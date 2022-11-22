@@ -1,5 +1,6 @@
 import users
 from app import app
+import messages
 
 from flask import render_template, request, redirect, session
 
@@ -38,3 +39,14 @@ def logout():
     return redirect('/')
 
 
+@app.route("/createmessage")
+def createmessage():
+    return render_template("createmessage.html")
+
+@app.route("/sendmessage", methods =['POST'])
+def sendmessage():
+    msg = request.form["message"]
+    if messages.add_message_sql(msg):
+        return redirect("/")
+    else:
+        return render_template("index.html")
