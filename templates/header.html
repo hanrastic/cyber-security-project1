@@ -1,5 +1,12 @@
 <header id="header">
     <h1><a href="/" id='headertitle'>CyberSecMessageApp</a></h1>
+    <section class="search-bar">
+        <form id="search-bar" action="/result" method="GET">
+            <label for="query">Search for messages:</label>
+            <input id="query" type="text" name="query" size="100">
+            <input id="search" type="submit" value="Search">
+        </form>
+    </section>
     {% if session.user_id %}
     <section class="headerinfo" id="right">
         <p class='button-wrapper'><a href='/logout' class='button' id="hover">Log Out</a></p>

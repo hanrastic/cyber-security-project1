@@ -7,8 +7,23 @@
 <!-- <a href="/postmessage" >Create a message</a> -->
 {% if session.user_id %}
 <a href="/createmessage" class="container" id="hover">Create a message</a>
+<hr>
 {% else %}
 To post a message, you must be logged in.
 {% endif %}
-
+<br>
+<!-- NOT READY FOR USE! Messages show admin status next to author-->
+<section>
+    {% for message in messages %}
+    
+    <!-- FLAW 4 -->
+    <!-- TO FIX FLAW 4 REMOVE THE "{{message[3]}}" PART OF THE BELOW LINE-->
+    <i>Writer:</i> {{ message[1] }} {{message[3]}}
+    <br>
+    <i>Message:</i> {{ message[0] }}
+    <br>
+    <i>Time:</i> {{ message[2].strftime("%d-%m-%Y %H:%M") }}
+    <hr>
+{% endfor %}
+</section>
 {% endblock %}

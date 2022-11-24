@@ -16,11 +16,29 @@ def add_message_sql(msg):
 
     return True
 
-def get_message():
-    return True
+def get_a_message_sql(query):
+    
+    #FLAW 3
+    #TO FIX FLAW 3 UNCOMMENT THREE LINES BELOW
+    #sql = "SELECT M.message, U.username, M.sent_at FROM messages M, users U " \
+    #       "WHERE M.user_id=U.id AND M.message LIKE :query"
+    #query_result = db.session.execute(sql, {"query": query})
 
-def get_all_messages():
-    sql = """SELECT M.message, U.username, M.sent_at 
+    #FLAW 3
+    #TO FIX FLAW 3 REMOVE THREE LINES BELOW
+    sql = "SELECT M.message, U.username, M.sent_at FROM messages M, users U " \
+            "WHERE M.user_id=U.id AND M.message LIKE \'%" + query + "%\'"
+    query_result = db.session.execute(sql)
+    
+    messages = query_result.fetchall()
+    if len(messages) == 0:
+        messages = [("No messages found",), ]
+        return messages
+    return messages
+
+
+def get_all_messages_sql():
+    sql = """SELECT M.message, U.username, M.sent_at, U.admin  
             FROM messages M, users U 
             WHERE M.user_id=U.id 
             ORDER BY M.sent_at DESC""" 

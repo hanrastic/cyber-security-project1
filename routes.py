@@ -6,7 +6,8 @@ from flask import render_template, request, redirect, session
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    list = messages.get_all_messages_sql()
+    return render_template("index.html", messages=list)
 
 
 @app.route("/signup", methods=["GET","POST"])
@@ -45,8 +46,18 @@ def createmessage():
 
 @app.route("/sendmessage", methods =['POST'])
 def sendmessage():
+    #TO FIX FLAW 1 uncomment the line below
+    #users.check_csrf()
     msg = request.form["message"]
     if messages.add_message_sql(msg):
         return redirect("/")
     else:
         return render_template("index.html")
+
+@app.route("/result")
+def search():
+    query = request.args["query"]
+    messages_found = messages.get_a_message_sql(query)
+    if messages_found[0][0] == "No messages found":
+        return render_template("error.html", message="No messages found")
+    return render_template("result.html", messages=messages_found)

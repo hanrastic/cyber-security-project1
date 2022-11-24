@@ -1,14 +1,17 @@
 import os
-# import hashlib
+import hashlib
 from db import db
 from flask import request, session, abort
 from werkzeug.security import check_password_hash, generate_password_hash
 
 def signup(username, password):
 
-    # hash_value = hashlib.md5(password.encode()).hexdigest()
+    hash_value = hashlib.sha1(password.encode()).hexdigest()
 
-    hash_value = generate_password_hash(password)
+    #FLAW 2
+    #TO FIX FLAW 2 UNCOMMENT THE LINE BELOW
+    #hash_value = generate_password_hash(password)
+    
     try:
         sql = """INSERT INTO users (username, password)
                 VALUES (:username, :password)""" 
@@ -26,11 +29,15 @@ def login(username, password):
     user = result.fetchone()
     if not user:
         return False
-    if not check_password_hash(user[1], password):
-        return False
+        
+    #FLAW 2
+    #TO FIX FLAW 2 UNCOMMENT TWO LINES BELOW
+    #if not check_password_hash(user[1], password):
+    #    return False
     
     session['username'] = username
     session['user_id'] = user[0]
+    #FLAW 1
     session['csrf_token'] = os.urandom(16).hex()
 
     return True
@@ -43,7 +50,8 @@ def logout():
     del session['username']
     del session['csrf_token']
 
+#FLAW 1
 def check_csrf():
-    if session['csrf_token'] != request.form['csrf_token']:
-        abort(403)
+     if session['csrf_token'] != request.form['csrf_token']:
+           abort(403)
 
