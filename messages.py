@@ -38,7 +38,7 @@ def get_a_message_sql(query):
 
 
 def get_all_messages_sql():
-    sql = """SELECT M.message, U.username, M.sent_at, U.admin  
+    sql = """SELECT M.message, U.username, M.sent_at, U.is_admin  
             FROM messages M, users U 
             WHERE M.user_id=U.id 
             ORDER BY M.sent_at DESC""" 
