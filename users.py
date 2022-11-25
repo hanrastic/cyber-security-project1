@@ -30,8 +30,8 @@ def login(username, password):
     if not user:
         return False
         
-    #FLAW 2
-    #TO FIX FLAW 2 UNCOMMENT TWO LINES BELOW
+    #FLAW 2 & 4
+    #TO FIX FLAW 2 and 4 UNCOMMENT TWO LINES BELOW
     #if not check_password_hash(user[1], password):
     #    return False
     
